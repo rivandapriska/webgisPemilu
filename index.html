@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Visualisasi Hasil Pemilu 2024</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/stylesIndex.css" rel="stylesheet" />
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+        <style>
+            .navbar-logo {
+            margin-left: 10px;
+            }
+            #services {
+                background-color: #843838 !important;
+            }
+        </style>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbars-light bgs-light">
+                <!-- Sidebar Toggle-->
+                <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+                <!-- Navbar-->
+                <ul class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                    <a class="navbars-brand ps-3" href="dpr.html">Visualisasi Hasil Pemilu 2024</a>
+                    <img class= "navbar-logo" src="assets\img\logoUGM.png" alt="Logo" style="height: 40px; width: auto;">
+                </ul>
+            </nav>
+        
+        <!-- side bar-->>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Beranda</div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
+                                Pemilihan Umum
+                            </a>
+
+                            <div class="sb-sidenav-menu-heading">Hasil Pemilu 2024</div>
+                            <a class="nav-link" href="hasilPRESIDEN.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-map"></i></div>
+                                Presiden
+                            </a>
+                            <a class="nav-link" href="hasilDPR.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-map-marked-alt"></i></div>
+                                DPR RI
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <!--isi konten-->
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                    <div class="card mb-4">
+                        <!--header-->
+                        <header class="masthead d-flex align-items-center">
+                            <div class="container px-4 px-lg-5 text-center">
+                                <h1 class="mb-3">WebGIS Pemilu 2024</h1>
+                                <img src="assets/img/sura.png" style="height: 400px; width: auto;" >
+                                <a class="btn btn-light btn-xl" href="#about">Selanjutnya</a>
+                                <img src="assets/img/sulu.png" style="height: 400px; width: auto;">
+                            </div>
+                        </header>
+                        <!--pengertian umum-->
+                        <section class="content-section bg-light" id="about">
+                            <div class="container px-4 px-lg-5 text-center">
+                                <div class="row gx-4 gx-lg-5 justify-content-center">
+                                    <div class="col-lg-10">
+                                        <h2>Pemilihan Umum</h2>
+                                        <p class="lead mb-5">
+                                            Pemilu adalah sarana pelaksanaan kedaulatan rakyat untuk memilih 
+                                            anggota DPR, DPD, Presiden dan Wakil Presiden dan anggota DPD, 
+                                            yang dilaksanakan secara langsung, umum, bebas, rahasia, jujur, dan adil.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!--fitur webgis-->
+                        <section class="content-section bg-primary text-white text-center" id="services">
+                            <div class="container px-4 px-lg-5">
+                                <div class="content-section-heading">
+                                    <h2>Peta Choropleth Interaktif</h2>
+                                    <p class="lead mb-5">
+                                        menyajikan informasi terkait hasil Pemilu Presiden dan DPR RI 2024 yang meliputi:
+                                    </p>
+                                </div>
+                                <div class="row gx-4 gx-lg-5">
+                                    <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="fas fa-map"></i></span>
+                                        <h4><strong>Daerah Pemilihan</strong></h4>
+                                        <p class="text-faded mb-0">Mencakup seluruh wilayah Indonesia</p>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="fas fa-vote-yea"></i></span>
+                                        <h4><strong>Rekapitulasi Suara</strong></h4>
+                                        <p class="text-faded mb-0">Hasil perhitungan suara pemilihan Presiden dan DPR RI </p>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+                                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="fas fa-address-card"></i></span>
+                                        <h4><strong>Tingkat Partisipasi</strong></h4>
+                                        <p class="text-faded mb-0">
+                                            Perbandingan keseluruhan suara dengan jumlah Daftar Pemilih Tetap (DPT)
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="fas fa-users"></i></span>
+                                        <h4><strong>Alokasi Kursi DPR RI</strong></h4>
+                                        <p class="text-faded mb-0">Perolehan kursi bagi Partai Politik pada setiap Dapil</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!--Referensi-->
+                        <section class="content-section bg-light" id="about">
+                            <div class="container px-4 px-lg-5 text-right">
+                                <div class="row gx-4 gx-lg-5 justify-content-center">
+                                    <div class="col-lg-15">
+                                        <h2>Sumber Data</h2>
+                                        <div class="justify-content-center">
+                                        <p class="lead mb-5">
+                                            <ul class="text-right-centered">
+                                                <li>
+                                                    <a href="https://jdih.kpu.go.id/data/data_pkpu/2023pkpu006.pdf">
+                                                    Peraturan KPU Nomor 6 Tahun 2023 tentang Daerah Pemilihan dan Alokasi Kursi Dalam Pemilihan Umum Tahun 2024
+                                                </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://jdih.kpu.go.id/detailkepkpu-4a645456523031524a544e454a544e45">
+                                                        Keputusan KPU Nomor 360 Tahun 2024 tentang Penetapan Hasil Pemilhan Umum Tahun 2024
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://www.kpu.go.id/dmdocument/16990094542023kpt857.pdf">
+                                                        Keputusan KPU Nomor 857 Tahun 2023 tentang Penetapan Rekapitulasi DPT Tingkat Nasional Dalam Penyelenggaraam Pemilihan Umum Tahun 2024
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://opendata.kpu.go.id/dataset/3af73316d-6f826961c-613979c81-8e311">
+                                                        Rekapitulasi Daftar Pemilih Tetap (DPT) Dalam Negeri Pemilu Tahun 2024
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://medan.tribunnews.com/2024/04/06/580-nama-lengkap-anggota-dpr-ri-periode-2024-2029-partai-ini-bakal-jadi-penguasa-gedung-dewan">
+                                                        580 Nama Lengkap Anggota DPR RI Periode 2024-2029
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!--footer-->
+                        <footer class="footer text-center">
+                            <div class="container px-4 px-lg-5">
+                                <p class="lead mb-4">WebGIS Hasil Pemilu Presiden dan DPR RI Tahun 2024 disusun oleh Rivanda Priska Arsyatifani 
+                                    <br>dibawah bimbingan Heri Sutanta, ST., MSc., Ph.D., dalam rangka memenuhi tugas akhir mahasiswa Program Studi Teknik Geodesi UGM
+                                </p>
+                                <ul class="list-inline mb-4">
+                                    <li class="list-inline-item">
+                                        <a class="social-link rounded-circle text-white mr-3" href="https://maps.app.goo.gl/gqLuguS6akqTp5zx8"><i class="fas fa-map-marker-alt"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="social-link rounded-circle text-white mr-3" href="mailto:rivandapriska@mail.ugm.ac.id"><i class="fas fa-envelope-open"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="social-link rounded-circle text-white" href="https://wa.me/081339782869"><i class="fas fa-phone-alt"></i></a>
+                                    </li>
+                                </ul>
+                                <p class="text-muted small mb-0">
+                                    Copyright &copy; <b>Geodetic Engineering Gadjah Mada University 2024</b>
+                                    Template by: <a href="https://startbootstrap.com/">startbootstrap</a>
+                                    & Illustration by: <a href="https://www.kpu.go.id/berita/baca/11257/maskot-pemilu-serentak-tahun-2024-sura-sulu">KPU</a>
+                                </p>
+                            </div>
+                        </footer>
+
+                    <!--selesai-->
+                    </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    </body>
+</html>

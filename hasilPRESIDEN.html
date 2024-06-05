@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Visualisasi Hasil Pemilu 2024</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <style>
+            #map {
+                width: 100%;
+                height: 93vh;
+            }
+            .body {
+                padding-top: 50px; /* Sesuaikan dengan tinggi navbar */
+                padding-bottom: 0;
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .info {
+                padding: 6px 8px;
+                font: 14px Arial, Helvetica, sans-serif;
+                background: white;
+                background: rgba(255,255,255,0.8);
+                box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                border-radius: 5px;
+            }
+            .info h3 {
+                margin: 0 0 5px;
+                color: #777;
+                font:  bold 18px Arial;
+            }
+            .legend {
+                padding: 6px 8px;
+                line-height: 18px;
+                color: #555;
+                background: white;
+                background: rgba(255,255,255,0.8);
+                box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                border-radius: 5px;
+            }
+            .legend i {
+                width: 18px;
+                height: 18px;
+                float: left;
+                margin-right: 8px;
+                margin-bottom: 0%;
+                opacity: 0.7;
+            }
+            .legend-wrapper {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap; /* Untuk memastikan elemen yang panjang akan membungkus ke baris berikutnya */
+            }
+            .legend-tittle {
+                margin: 0;
+                margin-bottom: 2px;
+                color: #524f4f;
+                font-weight: bold; /* Mengatur font tebal */
+                font-size: 13px; /* Mengatur ukuran font */
+                padding-bottom: 5px; /* Mengatur jarak bawah */
+            }
+        </style>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbars-light bgs-light style height: 50px">
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar-->
+            <ul class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <a class="navbars-brand ps-3" href="index.html">Visualisasi Hasil Pemilu 2024</a>
+                <img class= "navbar-logo" src="assets\img\logoUGM.png" alt="Logo" style="height: 40px; width: auto;">
+            </ul>
+        </nav>
+        
+        <!-- side bar-->>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Beranda</div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
+                                Pemilihan Umum
+                            </a>
+
+                            <div class="sb-sidenav-menu-heading">Hasil Pemilu 2024</div>
+                            <a class="nav-link" href="hasilPRESIDEN.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-map"></i></div>
+                                Presiden
+                            </a>
+                            <a class="nav-link" href="hasilDPR.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-map-marked-alt"></i></div>
+                                DPR RI
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        
+        <!-- Leaflet JavaScript -->
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid mt-4">
+                </div class="card mb-4">
+                    <div id="map"></div>
+                    <script src="js/pres_comp.js"></script>
+                    <script>
+                    var map = L.map('map', {
+                    center: [-1.401111, 116.827850],
+                    zoom: 5});
+                    var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'})
+                    .addTo(map);
+
+                    // pemberian warna berdasarkan hasil perolehan suara
+                    function getColor(d) {
+                        var colorMapping = {
+                            'ANIES MUHAIMIN - TINGGI': '#ffa045',
+                            'ANIES MUHAIMIN - SEDANG': '#ffbe83',
+                            'ANIES MUHAIMIN - RENDAH': '#fefae2',
+                            'PRABOWO GIBRAN - TINGGI': '#3296ea',
+                            'PRABOWO GIBRAN - SEDANG': '#8bbdf5',
+                            'PRABOWO GIBRAN - RENDAH': '#cde4ff',
+                            'GANJAR MAHFUD - TINGGI': '#ef1111',
+                            'GANJAR MAHFUD - SEDANG': '#ff896b',
+                            'GANJAR MAHFUD - RENDAH': '#fcd4d0'
+                        };
+                        return colorMapping[d] || 'black'; // else
+                    }
+
+                    // style peta
+                    function style(feature) {
+                        return {fillColor: getColor(feature.properties.TingkatKem),
+                            weight: 2,
+                            opacity: 1,
+                            color: 'white',
+                            dashArray: '3', // batas garis putus-putus
+                            fillOpacity: 0.7
+                        };
+                    }
+
+                    // menambah interaksi
+                    function highlightFeature(e) {
+                        var  layer = e.target;
+                        layer.setStyle({
+                            dashArray: '',
+                            weight: 3,
+                            color: '#666',
+                            fillOpacity: 0.7
+                        });
+                        layer.bringToFront();
+                        info.update(layer.feature.properties);
+                    }
+                    function resetHighlight(e) {
+                        geojson.resetStyle(e.target);
+                        info.update();
+                    }   
+
+                    var geojson;
+        
+                    function zoomToFeature(e) {
+                        map.fitBounds(e.target.getBounds());
+                    }
+                    function onEachFeature(feature, layer) {
+                        layer.on({
+                            mouseover: highlightFeature,
+                            mouseout: resetHighlight,
+                            click: zoomToFeature
+                        });
+                    }
+
+                    geojson = L.geoJson(pres_comp, {
+                        style: style,
+                        onEachFeature: onEachFeature
+                    }).addTo(map);
+                    
+                    // mengatur tampilan informasi berdasarkan mouseover
+                    var info = L.control();
+                    
+                    info.onAdd = function (map) {
+                        this._div = L.DomUtil.create('div', 'info');
+                        this.update();
+                        return this._div;
+                    };
+                    
+                    info.update = function (props) {
+                        this._div.innerHTML = 
+                        '<h3>Hasil Pemilu Presiden 2024</h3>' +  
+                        (props ?
+                        '<b>' + props.provinsi + '</b><br />' + 
+                        '<table>' +
+                            '<tr>' +
+                                '<td>DPT</td>' +
+                                '<td>= ' + props.DPT + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                                '<td>Anies-Muhaimin</td>' +
+                                '<td>= ' + props.AM + ' (' + props.AniesMuhai + ')</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                                '<td>Prabowo-Gibran</td>' +
+                                '<td>= ' + props.PG + ' (' + props.PrabowoGib + ')</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                                '<td>Ganjar-Mahfud</td>' +
+                                '<td>= ' + props.GM + ' (' + props.GanjarMahf + ')</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                                '<td>Proporsi Suara</td>' +
+                                '<td>= ' + props.ProporsiSu + ' (dari perolehan suara nasional)</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                                '<td>Tingkat Partisipasi</td>' +
+                                '<td>= ' + props.TingkatPar + '</td>' +
+                            '</tr>' +
+                        '</table>'
+                        : 'Pilih lokasi pemilihan'
+                        );
+                    };
+                    info.addTo(map);
+        
+                    //mengatur tampilan legenda
+                    var legend = L.control({position: 'bottomright'}); // Menetapkan posisi legenda di bagian kanan bawah
+                        legend.onAdd = function (map) {
+                        var div = L.DomUtil.create('div', 'legend'),
+                        kategori = ['TINGGI', 'SEDANG', 'RENDAH'];
+                        paslon = ['ANIES MUHAIMIN', 'PRABOWO GIBRAN', 'GANJAR MAHFUD'];
+        
+                     // Wrapper div untuk menampilkan elemen secara horizontal
+                     var wrapper = L.DomUtil.create('div', 'legend-wrapper', div);
+        
+                    //var paslonDiv = L.DomUtil.create('div', 'legend-item', wrapper);
+                    for (var j = 0; j < paslon.length; j++) {
+                        var paslonDiv = L.DomUtil.create('div', 'legend-item', wrapper);
+                        // Judul legenda untuk setiap pasangan calon
+                        paslonDiv.innerHTML += '<h4 class="legend-tittle">' + paslon[j] + '</h4>';
+                        //loop setiap paslon
+                        for (var i = 0; i < kategori.length; i++) {
+                            paslonDiv.innerHTML +=
+                            '<div style="display: flex; align-items: center;">' + // Menggunakan flexbox untuk mengatur tata letak
+                            '<i style="background:' + getColor(paslon[j] + ' - ' + kategori[i]) + '"></i>' +
+                            '<span style="width: 120px; display: inline-block">' + kategori[i] + '</span>' +
+                            '</div>';
+                        }
+                    }
+                    return div;
+                    };
+                    legend.addTo(map);
+                    </script>
+                </div>
+            </div>
+            <!--selesai-->
+            </main>
+        </div>
+    </body>
+</html>
