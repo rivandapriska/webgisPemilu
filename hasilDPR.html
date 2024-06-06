@@ -7,7 +7,6 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Visualisasi Hasil Pemilu 2024</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -67,22 +66,20 @@
                 padding-bottom: 5px; /* Mengatur jarak bawah */
             }
             .chart-container {
-                display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 250px;
-                height: 250px;
+                width: 300px;
+                height: 200px;
                 margin: 10px auto;
-                flex-direction: column;
             }
-            #piechart {
+            #barchart {
                 width: 100%;
                 height: 100%;
             }
         </style>
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-light bgs-light style height: 50px">
+        <nav class="sb-topnav navbar navbar-expand navbars-light bgs-light style height: 50px">
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar-->
@@ -137,6 +134,7 @@
                     var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'})
                     .addTo(map);
+
                     // pemberian warna berdasarkan hasil perolehan suara
                     function getColor(d) {
                         var colorMapping = {
@@ -166,7 +164,8 @@
                             'DEMOKRAT - RENDAH' : '#B5CBE1'
                         };
                         return colorMapping[d] || 'black'; // else
-                    }    
+                    }
+
                     // style peta
                     function style(feature) {
                         return {fillColor: getColor(feature.properties.TingkatKem),
@@ -176,13 +175,14 @@
                             dashArray: '3', // batas garis putus-putus
                             fillOpacity: 0.7
                         };
-                    }                   
-                    // menambah interaksi (mouse hover)
+                    }
+
+                    // menambah interaksi
                     function highlightFeature(e) {
                         var  layer = e.target;
                         layer.setStyle({
                             dashArray: '',
-                            weight: 2,
+                            weight: 3,
                             color: '#666',
                             fillOpacity: 0.7
                         });
@@ -192,43 +192,26 @@
                     function resetHighlight(e) {
                         geojson.resetStyle(e.target);
                         info.update();
-                    }
+                    }   
 
                     var geojson;
-                    var clickedLayer = null;
-                    
+        
                     function zoomToFeature(e) {
                         map.fitBounds(e.target.getBounds());
                     }
-                    
                     function onEachFeature(feature, layer) {
                         layer.on({
-                            mouseover: function(e) {
-                                if (clickedLayer !== e.target) {
-                                    highlightFeature(e);
-                                }
-                            },
-                            mouseout: function(e) {
-                                if (clickedLayer !== e.target) {
-                                    resetHighlight(e);
-                                }
-                            },
-                            click: function(e) {
-                                if (clickedLayer) {
-                                    geojson.resetStyle(clickedLayer);
-                                }
-                                clickedLayer = e.target;
-                                highlightFeature(e);
-                            }
+                            mouseover: highlightFeature,
+                            mouseout: resetHighlight,
+                            click: zoomToFeature
                         });
                     }
-            
+
                     geojson = L.geoJson(dpr_comp, {
                         style: style,
                         onEachFeature: onEachFeature
                     }).addTo(map);
-    
-            
+                    
                     // mengatur tampilan informasi berdasarkan mouseover
                     var info = L.control();
                     
@@ -289,21 +272,21 @@
                                 '<td>= ' + props.TingkatPar + '</td>' +
                             '</tr>' +
                         '</table>'+
-                        '<div class="chart-container"><canvas id="pieChart"></canvas></div>'
-                        : 'Pilih lokasi pemilihan' + ' <i>(double click untuk melihat hasil pie chart)'
+                        '<div class="chart-container"><canvas id="barChart"></canvas></div>'
+                        : 'Pilih lokasi pemilihan'
                         );
-
+                        
                         if (props) {
-                            updatePieChart(props);
+                            updatebarChart(props);
                         }
                     };
                     info.addTo(map);
 
-                    // Fungsi untuk memperbarui pie chart
-                    function updatePieChart(props) {
-                        var ctx = document.getElementById('pieChart').getContext('2d');
+                    // Fungsi untuk memperbarui bar chart
+                    function updatebarChart(props) {
+                        var ctx = document.getElementById('barChart').getContext('2d');
                         new Chart(ctx, {
-                            type: 'pie',
+                            type: 'bar',
                             data: {
                                 labels: ['PKB', 'GERINDRA', 'PDIP', 'GOLKAR', 'NASDEM', 'PKS', 'PAN', 'DEMOKRAT'],
                                 datasets: [{
@@ -311,48 +294,41 @@
                                     backgroundColor: ['#02754c','#c48434', '#d21d25', '#fbcc04', '#17158b', '#f85206', '#00b0df', '#1c448b']
                                 }]
                             },
-                            options: {
+                            options: {  
                                 responsive: true,
                                 maintainAspectRatio: false,
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            max: 3,
+                                            stepSize: 1
+                                        }
+                                    }]
+                                },
                                 title: {
                                     display: true,
                                     text: 'Alokasi Kursi DPR RI',
                                     fontSize: 16
                                 },
                                 legend: {
-                                    position: 'left',
-                                    labels: {
-                                        boxWidth: 20,
-                                        fontSize: 10
-                                    },
-                                },
-                            plugins: {
-                                datalabels: {
-                                    color: '#fff',
-                                    textAlign: 'center',
-                                    font: {
-                                        lineHeight: 1.2
-                                    },
-                                    formatter: function(value, ctx) {
-                                        return ctx.chart.data.labels[ctx.dataIndex];
-                                    }
+                                    display: false
                                 }
-                            }   
                             }
                         });
                     }
-            
+        
                     //mengatur tampilan legenda
                     var legend = L.control({position: 'bottomright'}); // Menetapkan posisi legenda di bagian kanan bawah
                         legend.onAdd = function (map) {
                         var div = L.DomUtil.create('div', 'legend'),
                         kategori = ['TINGGI', 'SEDANG', 'RENDAH'];
                         partai = ['PKB', 'GERINDRA', 'PDIP', 'GOLKAR', 'NASDEM', 'PKS', 'PAN', 'DEMOKRAT'];
-                        
-                    // Wrapper div untuk menampilkan elemen secara horizontal
-                    var wrapper = L.DomUtil.create('div', 'legend-wrapper', div);    
-                
-                    //var paslonDiv = L.DomUtil.create('div', 'legend-item', wrapper);
+        
+                     // Wrapper div untuk menampilkan elemen secara horizontal
+                     var wrapper = L.DomUtil.create('div', 'legend-wrapper', div);
+        
+                    //var partaiDiv = L.DomUtil.create('div', 'legend-item', wrapper);
                     for (var j = 0; j < partai.length; j++) {
                         var partaiDiv = L.DomUtil.create('div', 'legend-item', wrapper);                                     
                         // Judul legenda untuk setiap pasangan calon
