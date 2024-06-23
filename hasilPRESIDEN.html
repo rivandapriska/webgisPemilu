@@ -120,8 +120,8 @@
                     var map = L.map('map', {
                     center: [-1.401111, 116.827850],
                     zoom: 5});
-                    var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'})
+                    var tiles = L.tileLayer('https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA,USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'})
                     .addTo(map);
 
                     // pemberian warna berdasarkan hasil perolehan suara
@@ -157,7 +157,7 @@
                         layer.setStyle({
                             dashArray: '',
                             weight: 3,
-                            color: '#666',
+                            color: '#151515',
                             fillOpacity: 0.7
                         });
                         layer.bringToFront();
