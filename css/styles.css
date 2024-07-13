@@ -3745,7 +3745,7 @@ textarea.form-control-lg {
 .navbar {
   --bs-navbar-padding-x: 0;
   --bs-navbar-padding-y: 0.5rem;
-  --bs-navbar-color: #843838;
+  --bs-navbar-color: #564F44;
   --bs-navbar-hover-color: rgba(0, 0, 0, 0.7);
   --bs-navbar-disabled-color: rgba(0, 0, 0, 0.3);
   --bs-navbar-active-color: rgba(0, 0, 0, 0.9);
@@ -4156,10 +4156,10 @@ textarea.form-control-lg {
 }
 
 .navbar-dark {
-  --bs-navbar-color: #843838;
-  --bs-navbar-hover-color:#843838;
+  --bs-navbar-color: #564F44;
+  --bs-navbar-hover-color:#564F44;
   --bs-navbar-disabled-color: rgba(255, 255, 255, 0.25);
-  --bs-navbar-active-color: #843838;
+  --bs-navbar-active-color: #564F44 ;
   --bs-navbar-brand-color: #fff;
   --bs-navbar-brand-hover-color: #fff;
   --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1);
@@ -6703,13 +6703,13 @@ textarea.form-control-lg {
 }
 
 .text-bg-light {
-  color: #843838!important;
+  color: #564F44!important;
   background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-dark {
   color: #fff !important;
-  background-color: #843838 !important;
+  background-color: #564F44 !important;
 }
 
 .link-primary {
@@ -8174,12 +8174,12 @@ textarea.form-control-lg {
 
 .bgs-light {
   --bs-bg-opacity: 1;
-  background-color: #843838 !important;
+  background-color: #564F44 !important;
 }
 
 .bg-dark {
   --bs-bg-opacity: 1;
-  background-color: #843838 !important;
+  background-color: #564F44 !important;
 }
 
 .bg-black {
@@ -11020,7 +11020,7 @@ body {
 }
 
 .sb-sidenav-dark {
-  background-color: #843838;
+  background-color: #564F44;
   color: rgba(255, 255, 255, 0.5);
 }
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
