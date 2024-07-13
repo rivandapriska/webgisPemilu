@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Visualisasi Hasil Pemilu 2024</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+        <style>
+            #map {
+                width: 100%;
+                height: 93vh;
+            }
+            .body {
+                padding-top: 50px; /* Sesuaikan dengan tinggi navbar */
+                padding-bottom: 0;
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .leaflet-control-layers-expanded {
+                 max-height: 300px;
+                 overflow-y: auto;
+            }
+            .info {
+                padding: 6px 8px;
+                font: 14px Arial, Helvetica, sans-serif;
+                background: white;
+                border-radius: 5px;
+            }
+            .info h3 {
+                margin: 0 0 5px;
+                color: #777;
+                font:  bold 18px Arial;
+            }
+            .legend {
+                padding: 6px 8px;
+                line-height: 18px;
+                color: #555;
+                background: white;
+                border-radius: 5px;
+            }
+            .legend i {
+                width: 18px;
+                height: 18px;
+                float: left;
+                margin-right: 8px;
+                margin-bottom: 0%;
+                opacity: 0.7;
+            }
+            .legend-tittle {
+                margin: 0;
+                margin-bottom: 2px;
+                color: #524f4f;
+                font-weight: bold; /* Mengatur font tebal */
+                font-size: 13px; /* Mengatur ukuran font */
+                padding-bottom: 5px; /* Mengatur jarak bawah */
+            }
+            .leaflet-overlay-pane .leaflet-zoom-animated {
+                z-index: 400 !important; /* Sesuaikan nilai z-index sesuai kebutuhan */
+            }
+            .legend-color {
+                display: inline-block;
+                width: 20px;
+                height: 10px;
+                margin-right: 5px;
+                border: 1px solid #ccc;
+            }
+            .circle {
+                float: left;
+                border: 1px solid #222;
+                border-radius: 50%;
+            }
+            .legend .colorcircle {
+                border-radius: 50%;
+                width: 15px;
+                height: 15px;
+                margin-top: 0px;
+            }
+            .legend .circlepadding {
+                border-radius: 10%;
+            }
+        </style>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbars-light bgs-light style height: 50px">
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar-->
+            <ul class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <a class="navbars-brand ps-3" href="index.html">Visualisasi Hasil Pemilu 2024</a>
+                <img class= "navbar-logo" src="assets\img\logoUGM.png" alt="Logo" style="height: 40px; width: auto;">
+            </ul>
+        </nav>
+        
+        <!-- side bar-->>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Beranda</div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i></div>
+                                Pemilihan Umum
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Hasil Pemilu 2024</div>
+                            <a class="nav-link" href="hasilPRESIDEN.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-map"></i></div>
+                                Presiden
+                            </a>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                DPR RI
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="hasilDPR_a.html">PKB, GERINDRA, PDIP, GOLKAR</a>
+                                    <a class="nav-link" href="hasilDPR_b.html">NASDEM, PKS, PAN, DEMOKRAT</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        
+        <!-- Leaflet JavaScript -->
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid mt-4">
+                </div class="card mb-4">
+                    <div id="map"></div>
+                    <script src="js/presiden.js"></script>
+                    <script> 
+                    
+                    var map = L.map('map', {center: [-1.401111, 116.827850], zoom: 5});
+                    
+                    var CartoDB_DarkMatterNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                        subdomains: 'abcd',
+                        maxZoom: 20
+                    });
+                    CartoDB_DarkMatterNoLabels.addTo(map);
+
+                    // warna simbologi anies muhaimin
+                    function getColorSimbologiAM(d) {
+                        return d > 60 ? '#a63603' :
+                                d > 50 ? '#e6550d' :
+                                d > 30 ? '#fd8d3c' :
+                                d > 20 ? '#fdae6b' :
+                                d > 10 ? '#fdd0a2' :
+                                        '#feedde';
+                    }
+                    // warna simbologi prabowo gibran
+                    function getColorSimbologiPG(d) {
+                        return d > 60 ? '#08519c' :
+                                d > 50 ? '#3182bd' :
+                                d > 30 ? '#6baed6' :
+                                d > 20 ? '#9ecae1' :
+                                d > 10 ? '#c6dbef' :
+                                        '#eff3ff';
+                    }
+                    // warna simbologi ganjar mahfud
+                    function getColorSimbologiGM(d) {
+                        return d > 60 ? '#a2191f' :
+                                d > 50 ? '#da1e28' :
+                                d > 30 ? '#fa4d56' :
+                                d > 20 ? '#ff8389' :
+                                d > 10 ? '#ffb3b8' :
+                                        '#ffd7d9';
+                    }
+                    // warna simbologi tingkat partisipasi
+                    function getColorSimbologiTP(d) {
+                        return d > 90 ? '#252525' :
+                                d > 85 ? '#636363' :
+                                d > 80 ? '#969696' :
+                                d > 75 ? '#cccccc' :
+                                        '#f7f7f7';
+                    }
+                    // warna simbologi Proporsi Suara
+                    function getColorSimbologiPS(d) {
+                        return d > 5 ? '#636363' :
+                                d > 1 ? '#bdbdbd' :
+                                        '#f0f0f0';
+                    }
+
+                    // style peta
+                    function styleSimbologiAM(feature) {
+                        return {fillColor: getColorSimbologiAM(feature.properties.AniesMuhai),
+                            weight: 2,
+                            opacity: 1,
+                            color: 'white',
+                            dashArray: '3', // batas garis putus-putus
+                            fillOpacity: 1
+                        };
+                    }
+                    function styleSimbologiPG(feature) {
+                        return {fillColor: getColorSimbologiPG(feature.properties.PrabowoGib),
+                            weight: 2,
+                            opacity: 1,
+                            color: 'white',
+                            dashArray: '3', // batas garis putus-putus
+                            fillOpacity: 1
+                        };
+                    }
+                    function styleSimbologiGM(feature) {
+                        return {fillColor: getColorSimbologiGM(feature.properties.GanjarMahf),
+                            weight: 2,
+                            opacity: 1,
+                            color: 'white',
+                            dashArray: '3', // batas garis putus-putus
+                            fillOpacity: 1
+                        };
+                    }
+                    function styleSimbologiTP(feature) {
+                        return {fillColor: getColorSimbologiTP(feature.properties.Partisipas),
+                            weight: 2,
+                            opacity: 1,
+                            color: 'white',
+                            dashArray: '3', // batas garis putus-putus
+                            fillOpacity: 1
+                        };
+                    }
+                    function styleSimbologiPS(feature) {
+                        return {fillColor: getColorSimbologiPS(feature.properties.ProporsiSu),
+                            weight: 2,
+                            opacity: 1,
+                            color: 'white',
+                            dashArray: '3', // batas garis putus-putus
+                            fillOpacity: 1
+                        };
+                    }
+
+                    // menambah interaksi
+                    function highlightFeature(e) {
+                        var  layer = e.target;
+                        layer.setStyle({
+                            dashArray: '',
+                            weight: 3,
+                            color: 'black',
+                            fillOpacity: 0.8
+                        });
+                        info.update(layer.feature.properties);
+                    }
+
+                    function resetHighlight(e) {
+                        info.update();
+                        var  layer = e.target;
+                        if (geojsonAM.hasLayer(layer)) {
+                            geojsonAM.resetStyle(layer);
+                        }
+                        else if (geojsonPG.hasLayer(layer)) {
+                            geojsonPG.resetStyle(layer);
+                        }
+                        else if (geojsonGM.hasLayer(layer)) {
+                            geojsonGM.resetStyle(layer);
+                        }
+                        else if (geojsonTP.hasLayer(layer)) {
+                            geojsonTP.resetStyle(layer);
+                        }
+                        else if (geojsonPS.hasLayer(layer)) {
+                            geojsonPS.resetStyle(layer);
+                        }
+                        else if (SimbologiDPThasLayer(layer)) {
+                            SimbologiDPT.resetStyle(layer);
+                        }
+
+                        // Reset style for SimbologiDPT
+                        SimbologiDPT.eachLayer(function (layer) {
+                            layer.setStyle({
+                                fillColor: '#07566d', // Ganti dengan warna yang sesuai
+                                radius: getRadius(layer.feature.properties.allDPT),
+                                weight: 1,
+                                opacity: 1,
+                                color: 'white',
+                                fillOpacity: 0.8
+                            });
+                        });
+                        SimbologiDPT.bringToFront(); 
+                    }   
+
+                    var geojson; 
+                    //POP UP TIAP LAYER
+                    function onEachFeature (feature, layer) {
+                        if (layer.options && layer.options.style === styleSimbologiAM && feature.properties.AniesMuhai) {
+                            layer.bindPopup('<center><b>'+ feature.properties.provinsi + '</b>' +
+                                '<br><center>Anies Muhaimin: ' + feature.properties.AniesMuhai + " %");
+                        }
+                        else if (layer.options && layer.options.style === styleSimbologiPG && feature.properties.PrabowoGib) {
+                            layer.bindPopup('<center><b>'+ feature.properties.provinsi + '</b>' +
+                                '<br><center>Prabowo Gibran: ' + feature.properties.PrabowoGib + " %");
+                        }
+                        else if (layer.options && layer.options.style === styleSimbologiGM && feature.properties.GanjarMahf) {
+                            layer.bindPopup('<center><b>'+ feature.properties.provinsi + '</b>' +
+                                '<br><center>Ganjar Mahfud: ' + feature.properties.GanjarMahf + " %");
+                        }
+                        else if (layer.options && layer.options.style === styleSimbologiTP && feature.properties.Partisipas) {
+                            layer.bindPopup('<center><b>'+ feature.properties.provinsi + '</b>' +
+                                '<br><center>Tingkat Partisipasi: ' + feature.properties.Partisipas + " %");
+                        }
+                        else if (layer.options && layer.options.style === styleSimbologiPS && feature.properties.ProporsiSu) {
+                            layer.bindPopup('<center><b>'+ feature.properties.provinsi + '</b>' +
+                                '<br><center>Proporsi Suara: ' + feature.properties.ProporsiSu + " %");
+                        }
+                        layer.on({
+                            mouseover: highlightFeature,
+                            mouseout: resetHighlight
+                        });
+                    }
+
+                    var geojsonPG = L.geoJson(presiden, {
+                        style: styleSimbologiPG,
+                        onEachFeature: onEachFeature
+                    }).addTo(map);
+                    var geojsonGM = L.geoJson(presiden, {
+                        style: styleSimbologiGM,
+                        onEachFeature: onEachFeature
+                    }).addTo(map);
+                    var geojsonTP = L.geoJson(presiden, {
+                        style: styleSimbologiTP,
+                        onEachFeature: onEachFeature
+                    }).addTo(map);
+                    var geojsonPS = L.geoJson(presiden, {
+                        style: styleSimbologiPS,
+                        onEachFeature: onEachFeature
+                    }).addTo(map);
+                    var geojsonAM = L.geoJson(presiden, {
+                        style: styleSimbologiAM,
+                        onEachFeature: onEachFeature
+                    }).addTo(map);
+
+                    var SimbologiDPT = L.layerGroup().addTo(map);
+                    presiden.features.forEach(function(feature) {
+                        var centroid = turf.centroid(feature);
+                        var allDPT = feature.properties.allDPT;
+                        var radius;
+                            if (allDPT < 1000000) {
+                                radius = 4;
+                            } else if (allDPT < 5000000) {
+                                radius = 7;
+                            } else if (allDPT < 10000000) {
+                                radius = 10;
+                            } else if (allDPT < 40000000) {
+                                radius = 15;
+                            }
+                        var style = {
+                            fillColor: '#e7298a', // Ganti dengan warna yang sesuai
+                            radius: radius,
+                            weight: 1,
+                            opacity: 1,
+                            color: 'pink',
+                            fillOpacity: 1
+                        };
+                        L.circleMarker([centroid.geometry.coordinates[1], centroid.geometry.coordinates[0]], style)
+                        .bindPopup('<b>' + feature.properties.provinsi + '</b>' + 
+                            '<br>DPT: ' + feature.properties.DPT)
+                        .addTo(SimbologiDPT);
+                    });
+
+                    // Fungsi untuk mendapatkan layer aktif
+                    map.getActiveLayer = function () {
+                        if (map.hasLayer(geojsonAM)) return 'SimbologiAM';
+                        if (map.hasLayer(geojsonPG)) return 'SimbologiPG';
+                        if (map.hasLayer(geojsonGM)) return 'SimbologiGM';
+                        if (map.hasLayer(geojsonTP)) return 'SimbologiTP';
+                        if (map.hasLayer(geojsonPS)) return 'SimbologiPS';
+                        return null;
+                    };
+
+                    var baseMaps = {
+                        "Tingkat Partisipasi" : geojsonTP,
+                        "Proporsi Suara" : geojsonPS,
+                        "Prabowo Gibran": geojsonPG,
+                        "Ganjar Mahfud" : geojsonGM,
+                        "Anies Muhaimin": geojsonAM,
+                    };
+                    var overlayMaps = {
+                        "Jumlah DPT": SimbologiDPT // Menambahkan grup layer titik sebagai overlay
+                    };
+
+                    // mengatur tampilan informasi berdasarkan mouseover
+                    var info = L.control();
+                    info.onAdd = function (map) {
+                        this._div = L.DomUtil.create('div', 'info');
+                        this.update();
+                        return this._div;
+                    };
+                    info.update = function (props) {
+                        var activeLayer = map.getActiveLayer();
+                        if (activeLayer == 'SimbologiTP') {
+                            this._div.innerHTML = 
+                                '<h3>Partisipasi Suara Pemilu DPR RI 2024</h3>' +
+                                (props ?
+                                '<b>' + props.dapil + '</b><br />' +
+                                'Tingkat partisipasi diperoleh berdasarkan perbandingan antara </br>' + 
+                                '<b> jumlah perolehan suara </b>' + 'dan' + '<b> DPT </b>' + 'suatu provinsi'
+                                    : 'Klik lokasi pemilihan'
+                                );
+                        } else if (activeLayer == 'SimbologiPS') {
+                            this._div.innerHTML = 
+                                '<h3>Perolehan Suara Anies-Muhaimin</h3>' +
+                                (props ?
+                                '<b>' + props.dapil + '</b><br />' +
+                                'Proporsi suara diperoleh berdasarkan perbandingan antara </br>' + 
+                                '<b> jumlah perolehan suara terbanyak </b>' + 'suatu provinsi dan' + '<b> total perolehan suara nasional </b>'
+                                    : 'Klik lokasi pemilihan'
+                                );
+                        } else if (activeLayer == 'SimbologiGM') {
+                            this._div.innerHTML = 
+                                '<h3>Perolehan Suara Ganjar Mahfud</h3>' +
+                                (props ?
+                                '<b>' + props.provinsi + '</b><br />' +
+                                'Ganjar-Mahfud memperoleh' + '<b> 26.922.493 </b>' +'suara dari 34 provinsi'
+                                    : 'Klik lokasi pemilihan'
+                                );
+                        } else if (activeLayer == 'SimbologiPG') {
+                            this._div.innerHTML = 
+                                '<h3>Perolehan Suara Prabowo-Gibran</h3>' +
+                                (props ?
+                                '<b>' + props.provinsi + '</b><br />' +
+                                'Prabowo-Gibran memperoleh' + '<b> 95.786.820 </b>' +'suara dari 34 provinsi'
+                                    : 'Klik lokasi pemilihan'
+                                );
+                        } else if (activeLayer == 'SimbologiAM') {
+                            this._div.innerHTML = 
+                                '<h3>Perolehan Suara Anies-Muhaimin</h3>' +
+                                (props ?
+                                '<b>' + props.provinsi + '</b><br />' +
+                                'Anies-Muhaimin memperoleh' + '<b> 40.846.796 </b>' +'suara dari 34 provinsi'
+                                    : 'Klik lokasi pemilihan'
+                                );
+                        }
+                    };
+                    info.addTo(map);
+
+                    L.control.layers(baseMaps, overlayMaps).addTo(map);
+                    
+                    //mengatur tampilan legenda
+                    var legendAM = L.control({position: 'bottomright'});
+                            legendAM.onAdd = function (map) {
+                                var div = L.DomUtil.create('div', 'legend');
+                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara Anies Muhaimin</p>';
+                                div.innerHTML += '<i style="background:#feedde"></i><span> <10% </span><br>';
+                                div.innerHTML += '<i style="background:#fdd0a2"></i><span> 10%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#fdae6b"></i><span> 20%-30% </span><br>';
+                                div.innerHTML += '<i style="background:#fd8d3c"></i><span> 30%-50% </span><br>';
+                                div.innerHTML += '<i style="background:#e6550d"></i><span> 50%-60% </span><br>';
+                                div.innerHTML += '<i style="background:#a63603"></i><span> ≥60% </span><br>';
+                                return div;
+                            };
+                    var legendPG = L.control({position: 'bottomright'});
+                            legendPG.onAdd = function (map) {
+                                var div = L.DomUtil.create('div', 'legend');
+                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara Prabowo Gibran</p>';
+                                div.innerHTML += '<i style="background:#eff3ff"></i><span> <10% </span><br>';
+                                div.innerHTML += '<i style="background:#c6dbef"></i><span> 10%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#9ecae1"></i><span> 20%-30% </span><br>';
+                                div.innerHTML += '<i style="background:#6baed6"></i><span> 30%-50% </span><br>';
+                                div.innerHTML += '<i style="background:#3182bd"></i><span> 50%-60% </span><br>';
+                                div.innerHTML += '<i style="background:#08519c"></i><span> ≥60% </span><br>';
+                                return div;
+                            };
+                    var legendGM = L.control({position: 'bottomright'});
+                            legendGM.onAdd = function (map) {
+                                var div = L.DomUtil.create('div', 'legend');
+                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara Ganjar Mahfud</p>';
+                                div.innerHTML += '<i style="background:#fee5d9"></i><span> <10% </span><br>';
+                                div.innerHTML += '<i style="background:#fcbba1"></i><span> 10%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#fc9272"></i><span> 20%-30% </span><br>';
+                                div.innerHTML += '<i style="background:#fb6a4a"></i><span> 30%-50% </span><br>';
+                                div.innerHTML += '<i style="background:#de2d26"></i><span> 50%-60% </span><br>';
+                                div.innerHTML += '<i style="background:#a50f15"></i><span> ≥60% </span><br>';
+                                return div;
+                            };
+                    var legendTP = L.control({position: 'bottomright'});
+                        legendTP.onAdd = function (map) {
+                            var div = L.DomUtil.create('div', 'legend');
+                                div.innerHTML += '<p class="legend-tittle">Tingkat Partisipasi</p>';
+                                div.innerHTML += '<i style="background:#f7f7f7"></i><span> <75% </span><br>';
+                                div.innerHTML += '<i style="background:#cccccc"></i><span> 75%-80% </span><br>';
+                                div.innerHTML += '<i style="background:#969696"></i><span> 80%-85% </span><br>';
+                                div.innerHTML += '<i style="background:#636363"></i><span> 85%-90% </span><br>';
+                                div.innerHTML += '<i style="background:#252525"></i><span> ≥90% </span><br>';
+                                return div;
+                    };    
+                    var legendPS = L.control({position: 'bottomright'});
+                        legendPS.onAdd = function (map) {
+                            var div = L.DomUtil.create('div', 'legend');
+                                div.innerHTML += '<p class="legend-tittle">Proporsi Suara</p>';
+                                div.innerHTML += '<i style="background:#f0f0f0"></i><span> <1% </span><br>';
+                                div.innerHTML += '<i style="background:#bdbdbd"></i><span> 1%-5% </span><br>';
+                                div.innerHTML += '<i style="background:#636363"></i><span> ≥5% </span><br>';
+                                return div;
+                    };
+
+                    // legendDPT
+                    function getRadius(r) {
+                    return  r > 10000000 ? 15 :
+                            r > 5000000 ? 10 :
+                            r > 1000000 ? 7 :
+                            r < 1000000 ? 4 :
+                            0;
+                    }
+                    var legendDPT = L.control({position: 'bottomright'});
+                    legendDPT.onAdd = function (map) {
+                        var div = L.DomUtil.create('div', 'legend');
+                        var grades = [500000, 3000000, 8000000, 30000000];
+                        var labels = ['<strong>Jumlah Daftar Pemilih Tetap (Juta)</strong>'];
+                        var categories = ['<1', '1-5', '5-10', '≥10'];
+
+                        for (var i = 0; i < grades.length; i++) {
+                            var grade = grades[i];//*0.5;
+                            labels.push(
+                               '<i class="circlepadding" style="width: '+Math.max(8,(7-2.2*getRadius(grade)))+'px;"></i> <i style="background: #e7298a; width: '+getRadius(grade)*1.75+'px; height: '+getRadius(grade)*1.75+'px; border-radius: 50%; margin-top: '+Math.max(0,(9-getRadius(grade)))+'px;"></i><i class="circlepadding" style="width: '+Math.max(2,(25-2*getRadius(grade)))+'px;"></i> ' + categories[i] 
+                            );
+                        }
+
+                        div.innerHTML = labels.join('<br>');
+                        return div;
+                    }
+                    
+                    map.on('baselayerchange', function (eventLayer) {
+                        map.removeControl(legendAM);
+                        map.removeControl(legendPG);
+                        map.removeControl(legendGM);
+                        map.removeControl(legendTP);
+                        map.removeControl(legendPS);
+                        map.removeControl(legendDPT);
+
+                        // Menambahkan legend yang sesuai dengan layer yang dipilih
+                        if (eventLayer.name === 'Anies Muhaimin') {
+                            legendAM.addTo(map);
+                        } else if (eventLayer.name === 'Prabowo Gibran') {
+                            legendPG.addTo(map);
+                        } else if (eventLayer.name === 'Ganjar Mahfud') {
+                            legendGM.addTo(map);
+                        } else if (eventLayer.name === 'Tingkat Partisipasi') {
+                            legendTP.addTo(map);
+                        } else if (eventLayer.name === 'Proporsi Suara') {
+                            legendPS.addTo(map);
+                        } 
+
+                        // Memastikan SimbologiDPT tetap di depan setiap kali terjadi perubahan baselayer
+                        if (map.hasLayer(SimbologiDPT)) {
+                            legendDPT.addTo(map);
+                        }
+                        SimbologiDPT.bringToFront();
+                    });
+
+                    </script>
+                </div>
+            </div>
+            <!--selesai-->
+            </main>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    </body>
+</html>
