@@ -65,13 +65,15 @@
             .chart-container {
                 justify-content: center;
                 align-items: center;
-                width: 300px;
-                height: 175px;
                 margin: auto;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+                gap: 20px;
             }
-            #barchart {
-                width: 100%;
-                height: 100%;
+            .chart-wrapper {
+                width: 350px; /* Atur lebar grafik sesuai kebutuhan */
+                height: 180px; /* Atur tinggi grafik sesuai kebutuhan */
             }
             .leaflet-overlay-pane .leaflet-zoom-animated {
                 z-index: 400 !important; /* Sesuaikan nilai z-index sesuai kebutuhan */
@@ -429,11 +431,15 @@
                                 (props ?
                                 '<b>' + props.dapil + '</b><br />' +
                                 'PKS memperoleh' + '<b> 12.781.353 </b>' +'suara dari 84 Dapil' +
-                                    '<div class="chart-container"><canvas id="barChart"></canvas></div>'
+                                    '<div class="chart-container">'+
+                                         '<div class= "chart-wrapper"><canvas id="barChartSuara"></canvas></div>'+
+                                         '<div class= "chart-wrapper"><canvas id="barChartKursi"></canvas></div>'+
+                                    '</div>'
                                     : 'Klik lokasi pemilihan'
                                 );
                             if (props) {
                                 updatebarChart(props);
+                                updatebarChartSuara(props);
                             }
                         } else if (activeLayer == 'SimbologiPAN') {
                             this._div.innerHTML = 
@@ -441,11 +447,15 @@
                                 (props ?
                                 '<b>' + props.dapil + '</b><br />' +
                                 'PAN memperoleh' + '<b> 10.984.003 </b>' +'suara dari 84 Dapil' +
-                                    '<div class="chart-container"><canvas id="barChart"></canvas></div>'
+                                    '<div class="chart-container">'+
+                                         '<div class= "chart-wrapper"><canvas id="barChartSuara"></canvas></div>'+
+                                         '<div class= "chart-wrapper"><canvas id="barChartKursi"></canvas></div>'+
+                                    '</div>'
                                     : 'Klik lokasi pemilihan'
                                 );
                             if (props) {
                                 updatebarChart(props);
+                                updatebarChartSuara(props);
                             }
                         } else if (activeLayer == 'SimbologiDEMOKRAT') {
                             this._div.innerHTML = 
@@ -453,11 +463,15 @@
                                 (props ?
                                 '<b>' + props.dapil + '</b><br />' +
                                 'NASDEM memperoleh' + '<b> 11.283.160 </b>' +'suara dari 84 Dapil' +
-                                    '<div class="chart-container"><canvas id="barChart"></canvas></div>'
+                                    '<div class="chart-container">'+
+                                         '<div class= "chart-wrapper"><canvas id="barChartSuara"></canvas></div>'+
+                                         '<div class= "chart-wrapper"><canvas id="barChartKursi"></canvas></div>'+
+                                    '</div>'
                                     : 'Klik lokasi pemilihan'
                                 );
                             if (props) {
                                 updatebarChart(props);
+                                updatebarChartSuara(props);
                             }
                         } else if (activeLayer == 'SimbologiNASDEM') {
                             this._div.innerHTML = 
@@ -465,19 +479,59 @@
                                 (props ?
                                 '<b>' + props.dapil + '</b><br />' +
                                 'NASDEM memperoleh' + '<b> 14.660.516 </b>' +'suara dari 84 Dapil' +
-                                    '<div class="chart-container"><canvas id="barChart"></canvas></div>'
+                                    '<div class="chart-container">'+
+                                         '<div class= "chart-wrapper"><canvas id="barChartSuara"></canvas></div>'+
+                                         '<div class= "chart-wrapper"><canvas id="barChartKursi"></canvas></div>'+
+                                    '</div>'
                                     : 'Klik lokasi pemilihan'
                                 );
                             if (props) {
                                 updatebarChart(props);
+                                updatebarChartSuara(props);
                             }
                         }
                     };
                     info.addTo(map);
 
+                    //bar chart perolehan suara per dapil
+                    function updatebarChartSuara(props) {
+                        var ctx = document.getElementById('barChartSuara').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['PKB', 'GERINDRA', 'PDIP', 'GOLKAR', 'NASDEM', 'PKS', 'PAN', 'DEMOKRAT'],
+                                datasets: [{
+                                    data: [props.P_PKB, props.P_GERINDRA, props.P_PDIP, props.P_GOLKAR, props.P_NASDEM, props.P_PKS, props.P_PAN, props.P_DEMOKRAT],
+                                    backgroundColor: ['#02754c','#c48434', '#d21d25', '#fbcc04', '#17158b', '#f85206', '#00b0df', '#1c448b']
+                                }]
+                            },
+                            options: {  
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            max: 30.00,
+                                            stepSize: 5.00
+                                        }
+                                    }]
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Perolehan Suara Per Provinsi (%)',
+                                    fontSize: 14
+                                },
+                                legend: {
+                                    display: false
+                                }
+                            }
+                        });
+                    }
+
                     // Fungsi untuk memperbarui bar chart alokasi kursi
                     function updatebarChart(props) {
-                        var ctx = document.getElementById('barChart').getContext('2d');
+                        var ctx = document.getElementById('barChartKursi').getContext('2d');
                         new Chart(ctx, {
                             type: 'bar',
                             data: {
