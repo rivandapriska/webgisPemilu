@@ -402,7 +402,7 @@
                             this._div.innerHTML = 
                                 '<h3>Partisipasi Suara Pemilu DPR RI 2024</h3>' +
                                 (props ?
-                                '<b>' + props.dapil + '</b><br />' +
+                                '<b>' + props.provinsi + '</b><br />' +
                                 'Tingkat partisipasi diperoleh berdasarkan perbandingan antara </br>' + 
                                 '<b> jumlah perolehan suara </b>' + 'dan' + '<b> DPT </b>' + 'suatu provinsi'
                                     : 'Klik lokasi pemilihan'
@@ -411,7 +411,7 @@
                             this._div.innerHTML = 
                                 '<h3>Perolehan Suara Anies-Muhaimin</h3>' +
                                 (props ?
-                                '<b>' + props.dapil + '</b><br />' +
+                                '<b>' + props.provinsi + '</b><br />' +
                                 'Proporsi suara diperoleh berdasarkan perbandingan antara </br>' + 
                                 '<b> jumlah perolehan suara terbanyak </b>' + 'suatu provinsi dan' + '<b> total perolehan suara nasional </b>'
                                     : 'Klik lokasi pemilihan'
@@ -444,7 +444,7 @@
                     };
                     info.addTo(map);
 
-                    L.control.layers(baseMaps, overlayMaps).addTo(map);
+                    L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
                     
                     //mengatur tampilan legenda
                     var legendAM = L.control({position: 'bottomright'});
