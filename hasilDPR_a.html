@@ -168,12 +168,12 @@
 
                     // warna simbologi PKB
                     function getColorSimbologiPKB(d) {
-                        return d > 25 ? '#043908' :
-                                d > 20 ? '#05460C' :
-                                d > 15 ? '#075410' :
-                                d > 10 ? '#076314' :
-                                d > 5 ? '#087218' :
-                                        '#07811C';
+                        return d > 25 ? '#0B4214' :
+                                d > 20 ? '#185C20' :
+                                d > 15 ? '#28772E' :
+                                d > 10 ? '#39933E' :
+                                d > 5 ? '#4CB14E' :
+                                        '#62CE60';
                     }
                     // warna simbologi GERINDRA
                     function getColorSimbologiGERINDRA(d) {
@@ -567,12 +567,12 @@
                             legendPKB.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
                                 div.innerHTML += '<p class="legend-tittle">Perolehan Suara PKB</p>';
-                                div.innerHTML += '<i style="background:#07811C"></i><span> <5% </span><br>';
-                                div.innerHTML += '<i style="background:#087218"></i><span> 5%-10% </span><br>';
-                                div.innerHTML += '<i style="background:#076314"></i><span> 10%-15% </span><br>';
-                                div.innerHTML += '<i style="background:#075410"></i><span> 15%-20% </span><br>';
-                                div.innerHTML += '<i style="background:#05460C"></i><span> 20%-25% </span><br>';
-                                div.innerHTML += '<i style="background:#043908"></i><span> ≥25% </span><br>';
+                                div.innerHTML += '<i style="background:#62CE60"></i><span> <5% </span><br>';
+                                div.innerHTML += '<i style="background:#4CB14E"></i><span> 5%-10% </span><br>';
+                                div.innerHTML += '<i style="background:#39933E"></i><span> 10%-15% </span><br>';
+                                div.innerHTML += '<i style="background:#28772E"></i><span> 15%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#185C20"></i><span> 20%-25% </span><br>';
+                                div.innerHTML += '<i style="background:#0B4214"></i><span> ≥25% </span><br>';
                                 return div;
                             };
                     var legendGERINDRA= L.control({position: 'bottomright'});

@@ -582,7 +582,11 @@
                         for (var i = 0; i < grades.length; i++) {
                             var grade = grades[i];//*0.5;
                             labels.push(
-                               '<i class="circlepadding" style="width: '+Math.max(8,(7-2.2*getRadius(grade)))+'px;"></i> <i style="background: #e7298a; width: '+getRadius(grade)*1.75+'px; height: '+getRadius(grade)*1.75+'px; border-radius: 50%; margin-top: '+Math.max(0,(9-getRadius(grade)))+'px;"></i><i class="circlepadding" style="width: '+Math.max(2,(25-2*getRadius(grade)))+'px;"></i> ' + categories[i] 
+                               '<i class="circlepadding" style="width: '+
+                               Math.max(8,(7-2.2*getRadius(grade)))+'px;"></i> <i style="background: #e7298a; width: '+
+                               getRadius(grade)*1.75+'px; height: '+getRadius(grade)*1.75+'px; border-radius: 50%; margin-top: '+
+                               Math.max(0,(9-getRadius(grade)))+'px;"></i><i class="circlepadding" style="width: '+
+                               Math.max(2,(25-2*getRadius(grade)))+'px;"></i> ' + categories[i] 
                             );
                         }
 
