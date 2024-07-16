@@ -170,11 +170,11 @@
                     // warna simbologi NASDEM
                     function getColorSimbologiNASDEM(d) {
                         return d > 25 ? '#0B0D62' :
-                                d > 20 ? '#161373' :
-                                d > 15 ? '#211983' :
-                                d > 10 ? '#2D2193' :
-                                d > 5 ? '#3928A2' :
-                                        '#4530AF';
+                                d > 20 ? '#212174' :
+                                d > 15 ? '#393291' :
+                                d > 10 ? '#5344A9' :
+                                d > 5 ? '#6E58BC' :
+                                        '#896EC9';
                     }
                     // warna simbologi PKS
                     function getColorSimbologiPKS(d) {
@@ -188,12 +188,12 @@
                     
                     // warna simbologi PAN
                     function getColorSimbologiPAN(d) {
-                        return d > 25 ? '#011567' :
-                                d > 20 ? '#011d83' :
-                                d > 15 ? '#0126A0' :
-                                d > 10 ? '#022FBE' :
-                                d > 5 ? '#0438DD' :
-                                        '#0742FD';
+                        return d > 25 ? '#011445' :
+                                d > 20 ? '#022272' :
+                                d > 15 ? '#022D98' :
+                                d > 10 ? '#0243E4' :
+                                d > 5 ? '#0F53FD' :
+                                        '#487CFE';
                     }
 
                     // warna simbologi DEMOKRAT
@@ -572,11 +572,11 @@
                             legendNASDEM.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
                                 div.innerHTML += '<p class="legend-tittle">Perolehan Suara NASDEM</p>';
-                                div.innerHTML += '<i style="background:#4530AF"></i><span> <5% </span><br>';
-                                div.innerHTML += '<i style="background:#3928A2"></i><span> 5%-10% </span><br>';
-                                div.innerHTML += '<i style="background:#2D2193"></i><span> 10%-15% </span><br>';
-                                div.innerHTML += '<i style="background:#211983"></i><span> 15%-20% </span><br>';
-                                div.innerHTML += '<i style="background:#161373"></i><span> 20%-25% </span><br>';
+                                div.innerHTML += '<i style="background:#896EC9"></i><span> <5% </span><br>';
+                                div.innerHTML += '<i style="background:#6E58BC"></i><span> 5%-10% </span><br>';
+                                div.innerHTML += '<i style="background:#5344A9"></i><span> 10%-15% </span><br>';
+                                div.innerHTML += '<i style="background:#393291"></i><span> 15%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#212174"></i><span> 20%-25% </span><br>';
                                 div.innerHTML += '<i style="background:#0B0D62"></i><span> ≥25% </span><br>';
                                 return div;
                             };
@@ -596,12 +596,12 @@
                             legendPAN.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
                                 div.innerHTML += '<p class="legend-tittle">Perolehan Suara PAN</p>';
-                                div.innerHTML += '<i style="background:#0742FD"></i><span> <5% </span><br>';
-                                div.innerHTML += '<i style="background:#0438DD"></i><span> 5%-10% </span><br>';
-                                div.innerHTML += '<i style="background:#022FBE"></i><span> 10%-15% </span><br>';
-                                div.innerHTML += '<i style="background:#0126A0"></i><span> 15%-20% </span><br>';
-                                div.innerHTML += '<i style="background:#011d83"></i><span> 20%-25% </span><br>';
-                                div.innerHTML += '<i style="background:#011567"></i><span> ≥25% </span><br>';
+                                div.innerHTML += '<i style="background:#487CFE"></i><span> <5% </span><br>';
+                                div.innerHTML += '<i style="background:#0F53FD"></i><span> 5%-10% </span><br>';
+                                div.innerHTML += '<i style="background:#0243E4"></i><span> 10%-15% </span><br>';
+                                div.innerHTML += '<i style="background:#022D98"></i><span> 15%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#022272"></i><span> 20%-25% </span><br>';
+                                div.innerHTML += '<i style="background:#011445"></i><span> ≥25% </span><br>';
                                 return div;
                             };
                     var legendDEMOKRAT= L.control({position: 'bottomright'});
