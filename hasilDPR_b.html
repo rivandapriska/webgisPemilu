@@ -208,11 +208,11 @@
 
                     // warna simbologi tingkat partisipasi
                     function getColorSimbologiTP(d) {
-                        return d > 90 ? '#252525' :
-                                d > 85 ? '#636363' :
-                                d > 80 ? '#969696' :
-                                d > 75 ? '#cccccc' :
-                                        '#f7f7f7';
+                        return d > 90 ? '#4D472B' :
+                                d > 85 ? '#655D3E' :
+                                d > 80 ? '#7E7455' :
+                                d > 75 ? '#988B6E' :
+                                        '#B2A38A';
                     }
 
                     // style peta
@@ -620,11 +620,11 @@
                         legendTP.onAdd = function (map) {
                             var div = L.DomUtil.create('div', 'legend');
                                 div.innerHTML += '<p class="legend-tittle">Tingkat Partisipasi</p>';
-                                div.innerHTML += '<i style="background:#f7f7f7"></i><span> <75% </span><br>';
-                                div.innerHTML += '<i style="background:#cccccc"></i><span> 75%-80% </span><br>';
-                                div.innerHTML += '<i style="background:#969696"></i><span> 80%-85% </span><br>';
-                                div.innerHTML += '<i style="background:#636363"></i><span> 85%-90% </span><br>';
-                                div.innerHTML += '<i style="background:#252525"></i><span> ≥90% </span><br>';
+                                div.innerHTML += '<i style="background:#B2A38A"></i><span> <75% </span><br>';
+                                div.innerHTML += '<i style="background:#988B6E"></i><span> 75%-80% </span><br>';
+                                div.innerHTML += '<i style="background:#7E7455"></i><span> 80%-85% </span><br>';
+                                div.innerHTML += '<i style="background:#655D3E"></i><span> 85%-90% </span><br>';
+                                div.innerHTML += '<i style="background:#4D472B"></i><span> ≥90% </span><br>';
                                 return div;
                     };   
                     
