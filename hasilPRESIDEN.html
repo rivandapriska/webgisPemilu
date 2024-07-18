@@ -18,7 +18,7 @@
                 height: 93vh;
             }
             .body {
-                padding-top: 50px; /* Sesuaikan dengan tinggi navbar */
+                padding-top: 50px;
                 padding-bottom: 0;
                 padding-left: 0;
                 padding-right: 0;
@@ -57,9 +57,10 @@
                 margin: 0;
                 margin-bottom: 2px;
                 color: #524f4f;
-                font-weight: bold; /* Mengatur font tebal */
-                font-size: 13px; /* Mengatur ukuran font */
-                padding-bottom: 5px; /* Mengatur jarak bawah */
+                font-weight: bold;
+                font-size: 13px; 
+                padding-bottom: 5px; 
+                text-align: center;
             }
             .chart-container {
                 justify-content: center;
@@ -73,7 +74,7 @@
                 height: 100%;
             }
             .leaflet-overlay-pane .leaflet-zoom-animated {
-                z-index: 400 !important; /* Sesuaikan nilai z-index sesuai kebutuhan */
+                z-index: 400 !important; 
             }
             .legend-color {
                 display: inline-block;
@@ -510,7 +511,7 @@
                     var legendAM = L.control({position: 'bottomright'});
                             legendAM.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
-                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara Anies Muhaimin</p>';
+                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara Anies Muhaimin <br> per total suara provinsi </p>';
                                 div.innerHTML += '<i style="background:#feedde"></i><span> <10% </span><br>';
                                 div.innerHTML += '<i style="background:#fdd0a2"></i><span> 10%-20% </span><br>';
                                 div.innerHTML += '<i style="background:#fdae6b"></i><span> 20%-30% </span><br>';
@@ -522,7 +523,7 @@
                     var legendPG = L.control({position: 'bottomright'});
                             legendPG.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
-                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara Prabowo Gibran</p>';
+                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara Prabowo Gibran <br> per total suara provinsi</p>';
                                 div.innerHTML += '<i style="background:#eff3ff"></i><span> <10% </span><br>';
                                 div.innerHTML += '<i style="background:#c6dbef"></i><span> 10%-20% </span><br>';
                                 div.innerHTML += '<i style="background:#9ecae1"></i><span> 20%-30% </span><br>';
@@ -534,7 +535,7 @@
                     var legendGM = L.control({position: 'bottomright'});
                             legendGM.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
-                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara Ganjar Mahfud</p>';
+                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara Ganjar Mahfud <br> per total suara provinsi</p>';
                                 div.innerHTML += '<i style="background:#fee5d9"></i><span> <10% </span><br>';
                                 div.innerHTML += '<i style="background:#fcbba1"></i><span> 10%-20% </span><br>';
                                 div.innerHTML += '<i style="background:#fc9272"></i><span> 20%-30% </span><br>';
@@ -576,7 +577,7 @@
                     legendDPT.onAdd = function (map) {
                         var div = L.DomUtil.create('div', 'legend');
                         var grades = [500000, 3000000, 8000000, 30000000];
-                        var labels = ['<strong>Jumlah Daftar Pemilih Tetap (Juta)</strong>'];
+                        var labels = ['<strong>Jumlah Daftar Pemilih Tetap (Juta Jiwa)</strong>'];
                         var categories = ['<1', '1-5', '5-10', '≥10'];
 
                         for (var i = 0; i < grades.length; i++) {

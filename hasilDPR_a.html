@@ -18,7 +18,7 @@
                 height: 93vh;
             }
             .body {
-                padding-top: 50px; /* Sesuaikan dengan tinggi navbar */
+                padding-top: 50px;
                 padding-bottom: 0;
                 padding-left: 0;
                 padding-right: 0;
@@ -57,9 +57,10 @@
                 margin: 0;
                 margin-bottom: 2px;
                 color: #524f4f;
-                font-weight: bold; /* Mengatur font tebal */
-                font-size: 13px; /* Mengatur ukuran font */
-                padding-bottom: 5px; /* Mengatur jarak bawah */
+                font-weight: bold; 
+                font-size: 13px; 
+                padding-bottom: 5px; 
+                text-align: center;
             }
             .chart-container {
                 justify-content: center;
@@ -71,11 +72,11 @@
                 gap: 20px;
             }
             .chart-wrapper {
-                width: 350px; /* Atur lebar grafik sesuai kebutuhan */
-                height: 180px; /* Atur tinggi grafik sesuai kebutuhan */
+                width: 350px; 
+                height: 180px;
             }
             .leaflet-overlay-pane .leaflet-zoom-animated {
-                z-index: 400 !important; /* Sesuaikan nilai z-index sesuai kebutuhan */
+                z-index: 400 !important;
             }
             .legend-color {
                 display: inline-block;
@@ -168,30 +169,30 @@
 
                     // warna simbologi PKB
                     function getColorSimbologiPKB(d) {
-                        return d > 25 ? '#0B4214' :
-                                d > 20 ? '#185C20' :
-                                d > 15 ? '#28772E' :
-                                d > 10 ? '#39933E' :
-                                d > 5 ? '#4CB14E' :
-                                        '#62CE60';
+                        return d > 25 ? '#00441b' :
+                                d > 20 ? '#006d2c' :
+                                d > 15 ? '#238b45' :
+                                d > 10 ? '#74c476' :
+                                d > 5 ? '#a1d99b' :
+                                        '#c7e9c0';
                     }
                     // warna simbologi GERINDRA
                     function getColorSimbologiGERINDRA(d) {
-                        return d > 25 ? '#8A1101' :
-                                d > 20 ? '#91270F' :
-                                d > 15 ? '#953A1F' :
-                                d > 10 ? '#974B30' :
-                                d > 5 ? '#955C43' :
-                                        '#8E6D58';
+                        return d > 25 ? '#4E1E00' :
+                                d > 20 ? '#763913' :
+                                d > 15 ? '#9D572C' :
+                                d > 10 ? '#C17A4C' :
+                                d > 5 ? '#E09F72' :
+                                        '#F9C8A0';
                     }
                     // warna simbologi PDIP
                     function getColorSimbologiPDIP(d) {
-                        return d > 25 ? '#4A0001' :
-                                d > 20 ? '#6A010B' :
-                                d > 15 ? '#8C0113' :
-                                d > 10 ? '#B0021A' :
-                                d > 5 ? '#D50322' :
-                                        '#FB062B';
+                        return d > 25 ? '#A2191F' :
+                                d > 20 ? '#DA1E28' :
+                                d > 15 ? '#FA4D56' :
+                                d > 10 ? '#FF8389' :
+                                d > 5 ? '#FFB3B8' :
+                                        '#FFD7D9';
                     }
                     // warna simbologi GOLKAR
                     function getColorSimbologiGOLKAR(d) {
@@ -370,7 +371,7 @@
                                 radius = 15;
                             }
                         var style = {
-                            fillColor: '#e7298a', // Ganti dengan warna yang sesuai
+                            fillColor: '#e7298a',
                             radius: radius,
                             weight: 1,
                             opacity: 1,
@@ -566,43 +567,43 @@
                     var legendPKB= L.control({position: 'bottomright'});
                             legendPKB.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
-                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara PKB</p>';
-                                div.innerHTML += '<i style="background:#62CE60"></i><span> <5% </span><br>';
-                                div.innerHTML += '<i style="background:#4CB14E"></i><span> 5%-10% </span><br>';
-                                div.innerHTML += '<i style="background:#39933E"></i><span> 10%-15% </span><br>';
-                                div.innerHTML += '<i style="background:#28772E"></i><span> 15%-20% </span><br>';
-                                div.innerHTML += '<i style="background:#185C20"></i><span> 20%-25% </span><br>';
-                                div.innerHTML += '<i style="background:#0B4214"></i><span> ≥25% </span><br>';
+                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara PKB <br> per total suara dapil</p>';
+                                div.innerHTML += '<i style="background:#c7e9c0"></i><span> <5% </span><br>';
+                                div.innerHTML += '<i style="background:#a1d99b"></i><span> 5%-10% </span><br>';
+                                div.innerHTML += '<i style="background:#74c476"></i><span> 10%-15% </span><br>';
+                                div.innerHTML += '<i style="background:#238b45"></i><span> 15%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#006d2c"></i><span> 20%-25% </span><br>';
+                                div.innerHTML += '<i style="background:#00441b"></i><span> ≥25% </span><br>';
                                 return div;
                             };
                     var legendGERINDRA= L.control({position: 'bottomright'});
                             legendGERINDRA.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
-                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara GERINDRA</p>';
-                                div.innerHTML += '<i style="background:#8E6D58"></i><span> <5% </span><br>';
-                                div.innerHTML += '<i style="background:#955C43"></i><span> 5%-10% </span><br>';
-                                div.innerHTML += '<i style="background:#974B30"></i><span> 10%-15% </span><br>';
-                                div.innerHTML += '<i style="background:#953A1F"></i><span> 15%-20% </span><br>';
-                                div.innerHTML += '<i style="background:#91270F"></i><span> 20%-25% </span><br>';
-                                div.innerHTML += '<i style="background:#8A1101"></i><span> ≥25% </span><br>';
+                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara GERINDRA <br> per total suara dapil</p>';
+                                div.innerHTML += '<i style="background:#F9C8A0"></i><span> <5% </span><br>';
+                                div.innerHTML += '<i style="background:#E09F72"></i><span> 5%-10% </span><br>';
+                                div.innerHTML += '<i style="background:#C17A4C"></i><span> 10%-15% </span><br>';
+                                div.innerHTML += '<i style="background:#9D572C"></i><span> 15%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#763913"></i><span> 20%-25% </span><br>';
+                                div.innerHTML += '<i style="background:#4E1E00"></i><span> ≥25% </span><br>';
                                 return div;
                             };
                     var legendPDIP= L.control({position: 'bottomright'});
                             legendPDIP.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
-                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara PDIP</p>';
-                                div.innerHTML += '<i style="background:#DA856C"></i><span> <5% </span><br>';
-                                div.innerHTML += '<i style="background:#C76551"></i><span> 5%-10% </span><br>';
-                                div.innerHTML += '<i style="background:#AF4839"></i><span> 10%-15% </span><br>';
-                                div.innerHTML += '<i style="background:#932E25"></i><span> 15%-20% </span><br>';
-                                div.innerHTML += '<i style="background:#761515"></i><span> 20%-25% </span><br>';
-                                div.innerHTML += '<i style="background:#540205"></i><span> ≥25% </span><br>';
+                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara PDIP <br> per total suara dapil</p>';
+                                div.innerHTML += '<i style="background:#FFD7D9"></i><span> <5% </span><br>';
+                                div.innerHTML += '<i style="background:#FFB3B8"></i><span> 5%-10% </span><br>';
+                                div.innerHTML += '<i style="background:#FF8389"></i><span> 10%-15% </span><br>';
+                                div.innerHTML += '<i style="background:#FA4D56"></i><span> 15%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#DA1E28"></i><span> 20%-25% </span><br>';
+                                div.innerHTML += '<i style="background:#A2191F"></i><span> ≥25% </span><br>';
                                 return div;
                             };
                     var legendGOLKAR= L.control({position: 'bottomright'});
                             legendGOLKAR.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
-                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara GOLKAR</p>';
+                                div.innerHTML += '<p class="legend-tittle">Perolehan Suara GOLKAR <br> per total suara dapil</p>';
                                 div.innerHTML += '<i style="background:#FDE4BC"></i><span> <5% </span><br>';
                                 div.innerHTML += '<i style="background:#FDDB9B"></i><span> 5%-10% </span><br>';
                                 div.innerHTML += '<i style="background:#FAD27C"></i><span> 10%-15% </span><br>';
@@ -626,8 +627,8 @@
                     // legendDPT
                     function getRadius(r) {
                     return  r > 3000000 ? 15 :
-                            r < 3000000 ? 10 :
-                            r < 2000000 ? 7 :
+                            r > 2000000 ? 10 :
+                            r > 1000000 ? 7 :
                             r < 1000000 ? 4 :
                             0;
                     }
@@ -635,7 +636,7 @@
                     legendDPT.onAdd = function (map) {
                         var div = L.DomUtil.create('div', 'legend');
                         var grades = [500000, 1500000, 2500000, 4000000];
-                        var labels = ['<strong>Jumlah Daftar Pemilih Tetap (Juta)</strong>'];
+                        var labels = ['<strong>Jumlah Daftar Pemilih Tetap (Juta Jiwa)</strong>'];
                         var categories = ['<1', '1-2', '2-3', '≥3'];
                         for (var i = 0; i < grades.length; i++) {
                             var grade = grades[i];//*0.5;

@@ -169,41 +169,41 @@
 
                     // warna simbologi NASDEM
                     function getColorSimbologiNASDEM(d) {
-                        return d > 25 ? '#0B0D62' :
-                                d > 20 ? '#212174' :
-                                d > 15 ? '#393291' :
-                                d > 10 ? '#5344A9' :
-                                d > 5 ? '#6E58BC' :
-                                        '#896EC9';
+                        return d > 25 ? '#1F0A5D' :
+                                d > 20 ? '#421F90' :
+                                d > 15 ? '#683ABB' :
+                                d > 10 ? '#905ADC' :
+                                d > 5 ? '#B87EF2' :
+                                        '#DEA6FC';
                     }
                     // warna simbologi PKS
                     function getColorSimbologiPKS(d) {
-                        return d > 25 ? '#FB6602' :
-                                d > 20 ? '#FE792B' :
-                                d > 15 ? '#FE8B47' :
-                                d > 10 ? '#FC9E64' :
-                                d > 5 ? '#F6B182' :
-                                        '#E8C6A6';
+                        return d > 25 ? '#A63603' :
+                                d > 20 ? '#E6550D' :
+                                d > 15 ? '#FD8D3C' :
+                                d > 10 ? '#FDAE6B' :
+                                d > 5 ? '#FDD0A2' :
+                                        '#FEEDDE';
                     }
                     
                     // warna simbologi PAN
                     function getColorSimbologiPAN(d) {
                         return d > 25 ? '#011445' :
                                 d > 20 ? '#022272' :
-                                d > 15 ? '#022D98' :
-                                d > 10 ? '#0243E4' :
-                                d > 5 ? '#0F53FD' :
-                                        '#487CFE';
+                                d > 15 ? '#0237BA' :
+                                d > 10 ? '#0247F4' :
+                                d > 5 ? '#4479FE' :
+                                        '#82A5FE';
                     }
 
                     // warna simbologi DEMOKRAT
                     function getColorSimbologiDEMOKRAT(d) {
                         return d > 25 ? '#001D40' :
                                 d > 20 ? '#073163' :
-                                d > 15 ? '#194787' :
-                                d > 10 ? '#2E5FAC' :
-                                d > 5 ? '#4577D0' :
-                                        '#5E90F3';
+                                d > 15 ? '#1E57A2' :
+                                d > 10 ? '#477ACD' :
+                                d > 5 ? '#7C9FDE' :
+                                        '#BED2FA';
                     }
 
                     // warna simbologi tingkat partisipasi
@@ -572,34 +572,34 @@
                             legendNASDEM.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
                                 div.innerHTML += '<p class="legend-tittle">Perolehan Suara NASDEM</p>';
-                                div.innerHTML += '<i style="background:#896EC9"></i><span> <5% </span><br>';
-                                div.innerHTML += '<i style="background:#6E58BC"></i><span> 5%-10% </span><br>';
-                                div.innerHTML += '<i style="background:#5344A9"></i><span> 10%-15% </span><br>';
-                                div.innerHTML += '<i style="background:#393291"></i><span> 15%-20% </span><br>';
-                                div.innerHTML += '<i style="background:#212174"></i><span> 20%-25% </span><br>';
-                                div.innerHTML += '<i style="background:#0B0D62"></i><span> ≥25% </span><br>';
+                                div.innerHTML += '<i style="background:#DEA6FC"></i><span> <5% </span><br>';
+                                div.innerHTML += '<i style="background:#B87EF2"></i><span> 5%-10% </span><br>';
+                                div.innerHTML += '<i style="background:#905ADC"></i><span> 10%-15% </span><br>';
+                                div.innerHTML += '<i style="background:#683ABB"></i><span> 15%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#421F90"></i><span> 20%-25% </span><br>';
+                                div.innerHTML += '<i style="background:#1F0A5D"></i><span> ≥25% </span><br>';
                                 return div;
                             };
                     var legendPKS= L.control({position: 'bottomright'});
                             legendPKS.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
                                 div.innerHTML += '<p class="legend-tittle">Perolehan Suara PKS</p>';
-                                div.innerHTML += '<i style="background:#E8C6A6"></i><span> <5% </span><br>';
-                                div.innerHTML += '<i style="background:#F6B182"></i><span> 5%-10% </span><br>';
-                                div.innerHTML += '<i style="background:#FC9E64"></i><span> 10%-15% </span><br>';
-                                div.innerHTML += '<i style="background:#FE8B47"></i><span> 15%-20% </span><br>';
-                                div.innerHTML += '<i style="background:#FE792B"></i><span> 20%-25% </span><br>';
-                                div.innerHTML += '<i style="background:#FB6602"></i><span> ≥25% </span><br>';
+                                div.innerHTML += '<i style="background:#FEEDDE"></i><span> <5% </span><br>';
+                                div.innerHTML += '<i style="background:#FDD0A2"></i><span> 5%-10% </span><br>';
+                                div.innerHTML += '<i style="background:#FDAE6B"></i><span> 10%-15% </span><br>';
+                                div.innerHTML += '<i style="background:#FD8D3C"></i><span> 15%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#E6550D"></i><span> 20%-25% </span><br>';
+                                div.innerHTML += '<i style="background:#A63603"></i><span> ≥25% </span><br>';
                                 return div;
                             };
                     var legendPAN= L.control({position: 'bottomright'});
                             legendPAN.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
                                 div.innerHTML += '<p class="legend-tittle">Perolehan Suara PAN</p>';
-                                div.innerHTML += '<i style="background:#487CFE"></i><span> <5% </span><br>';
-                                div.innerHTML += '<i style="background:#0F53FD"></i><span> 5%-10% </span><br>';
-                                div.innerHTML += '<i style="background:#0243E4"></i><span> 10%-15% </span><br>';
-                                div.innerHTML += '<i style="background:#022D98"></i><span> 15%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#82A5FE"></i><span> <5% </span><br>';
+                                div.innerHTML += '<i style="background:#4479FE"></i><span> 5%-10% </span><br>';
+                                div.innerHTML += '<i style="background:#0247F4"></i><span> 10%-15% </span><br>';
+                                div.innerHTML += '<i style="background:#0237BA"></i><span> 15%-20% </span><br>';
                                 div.innerHTML += '<i style="background:#022272"></i><span> 20%-25% </span><br>';
                                 div.innerHTML += '<i style="background:#011445"></i><span> ≥25% </span><br>';
                                 return div;
@@ -608,10 +608,10 @@
                             legendDEMOKRAT.onAdd = function (map) {
                                 var div = L.DomUtil.create('div', 'legend');
                                 div.innerHTML += '<p class="legend-tittle">Perolehan Suara DEMOKRAT</p>';
-                                div.innerHTML += '<i style="background:#5E90F3"></i><span> <5% </span><br>';
-                                div.innerHTML += '<i style="background:#4577D0"></i><span> 5%-10% </span><br>';
-                                div.innerHTML += '<i style="background:#2E5FAC"></i><span> 10%-15% </span><br>';
-                                div.innerHTML += '<i style="background:#194787"></i><span> 15%-20% </span><br>';
+                                div.innerHTML += '<i style="background:#BED2FA"></i><span> <5% </span><br>';
+                                div.innerHTML += '<i style="background:#7C9FDE"></i><span> 5%-10% </span><br>';
+                                div.innerHTML += '<i style="background:#477ACD"></i><span> 10%-15% </span><br>';
+                                div.innerHTML += '<i style="background:#1E57A2"></i><span> 15%-20% </span><br>';
                                 div.innerHTML += '<i style="background:#073163"></i><span> 20%-25% </span><br>';
                                 div.innerHTML += '<i style="background:#001D40"></i><span> ≥25% </span><br>';
                                 return div;
@@ -631,8 +631,8 @@
                     // legendDPT
                     function getRadius(r) {
                     return  r > 3000000 ? 15 :
-                            r < 3000000 ? 10 :
-                            r < 2000000 ? 7 :
+                            r > 2000000 ? 10 :
+                            r > 1000000 ? 7 :
                             r < 1000000 ? 4 :
                             0;
                     }
