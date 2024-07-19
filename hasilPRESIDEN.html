@@ -547,7 +547,7 @@
                     var legendTP = L.control({position: 'bottomright'});
                         legendTP.onAdd = function (map) {
                             var div = L.DomUtil.create('div', 'legend');
-                                div.innerHTML += '<p class="legend-tittle">Tingkat Partisipasi</p>';
+                                div.innerHTML += '<p class="legend-tittle">Tingkat Partisipasi <br> (total pemilih per DPT provinsi)</p>';
                                 div.innerHTML += '<i style="background:#B2A38A"></i><span> <75% </span><br>';
                                 div.innerHTML += '<i style="background:#988B6E"></i><span> 75%-80% </span><br>';
                                 div.innerHTML += '<i style="background:#7E7455"></i><span> 80%-85% </span><br>';
@@ -558,7 +558,7 @@
                     var legendPS = L.control({position: 'bottomright'});
                         legendPS.onAdd = function (map) {
                             var div = L.DomUtil.create('div', 'legend');
-                                div.innerHTML += '<p class="legend-tittle">Proporsi Suara</p>';
+                                div.innerHTML += '<p class="legend-tittle">Proporsi Suara <br> (perolehan suara terbanyak per total nasional)</p>';
                                 div.innerHTML += '<i style="background:#f0f0f0"></i><span> <1% </span><br>';
                                 div.innerHTML += '<i style="background:#bdbdbd"></i><span> 1%-5% </span><br>';
                                 div.innerHTML += '<i style="background:#636363"></i><span> ≥5% </span><br>';
